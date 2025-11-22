@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
-from app import database, schemas, oauth2
+from app.core import database
+from app import schemas, oauth2
 from bson import ObjectId
 from datetime import datetime
 

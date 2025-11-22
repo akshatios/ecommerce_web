@@ -1,27 +1,35 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import auth, products, orders
+from app.core.config import settings
+from app.core.routes import register_routes
 
+# Create FastAPI application
 app = FastAPI(
-    title="E-commerce API",
-    description="A complete e-commerce API built with FastAPI and MongoDB",
-    version="1.0.0"
+    title=settings.APP_NAME,
+    description=settings.APP_DESCRIPTION,
+    version=settings.APP_VERSION
 )
 
-origins = ["*"]
-
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(auth.router)
-app.include_router(products.router)
-app.include_router(orders.router)
+# Register all routes
+register_routes(app)
 
-@app.get("/")
-def root():
-    return {"message": "Welcome to the E-commerce API"}
+# Startup event
+@app.on_event("startup")
+async def startup_event():
+    print(f"🚀 {settings.APP_NAME} v{settings.APP_VERSION} started successfully!")
+
+# Shutdown event
+@app.on_event("shutdown")
+async def shutdown_event():
+    from app.core.database import database
+    database.close()
+    print("👋 Application shutdown complete")
