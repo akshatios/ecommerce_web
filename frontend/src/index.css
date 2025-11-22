@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-white font-sans antialiased overflow-x-hidden;
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-bg;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neon-purple rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neon-pink;
+  }
+}
+
+.glass-panel {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10;
+}
+
+.neon-text {
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.neon-border {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
