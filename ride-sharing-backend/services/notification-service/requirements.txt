@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+pydantic-settings
+python-socketio
+redis
+kafka-python
+firebase-admin
